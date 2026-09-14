@@ -52,6 +52,16 @@ This fork is only as good as the data behind it. As measured on 2026-08-23, the 
 
 **A solver tuned against outcome data that cannot distinguish a no-show from a dispute will optimise for the wrong thing.** Fix the ledger first. This is a sequencing dependency, not a footnote.
 
+**Update 2026-09-14 — prerequisite closed.** steadywrk migration
+`packages/db/migrations/0068_dispatch_status_failure_states.sql` (dated 2026-08-30, DEGATE-MAX
+Phase 1B) added `failed`, `disputed`, `expired`, and `no_show` to the `dispatch_status` enum via
+`ALTER TYPE ... ADD VALUE IF NOT EXISTS`, so those outcomes no longer flatten into `cancelled`.
+The ledger-coarseness dependency above is therefore satisfied at the schema level. Still open
+before any solver work: the design doc this file demands, the dry-run gate, and evidence that the
+new states are actually being written on live dispatches (schema capacity is not data — verify
+row counts per state before tuning against them). The 2026-08-23 measurement text above is kept
+verbatim as the historical record.
+
 ## Never
 
 - Feed it real customer PII in a sandbox experiment.
