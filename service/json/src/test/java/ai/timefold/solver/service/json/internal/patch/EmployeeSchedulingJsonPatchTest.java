@@ -1,7 +1,6 @@
 package ai.timefold.solver.service.json.internal.patch;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,12 +41,12 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees + 1, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees + 1);
 
         JsonNode addedEmployee = modelInputPatched.get("employees").get(numberOfEmployeesAfterPatch - 1);
-        assertEquals("john doe", addedEmployee.get("id").asText());
-        assertEquals("fullTimeContract", addedEmployee.get("contracts").get(0).asText());
-        assertEquals("Ambulance", addedEmployee.get("skills").get(0).get("id").asText());
+        assertThat(addedEmployee.get("id").asText()).isEqualTo("john doe");
+        assertThat(addedEmployee.get("contracts").get(0).asText()).isEqualTo("fullTimeContract");
+        assertThat(addedEmployee.get("skills").get(0).get("id").asText()).isEqualTo("Ambulance");
     }
 
     @Test
@@ -68,11 +67,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         JsonNode employee = modelInputPatched.get("employees").get(0);
-        assertEquals("fullTimeContract", employee.get("contracts").get(0).asText());
-        assertEquals("test", employee.get("contracts").get(1).asText());
+        assertThat(employee.get("contracts").get(0).asText()).isEqualTo("fullTimeContract");
+        assertThat(employee.get("contracts").get(1).asText()).isEqualTo("test");
     }
 
     @Test
@@ -96,10 +95,10 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         JsonNode employee = modelInputPatched.get("employees").get(0);
-        assertEquals(1, employee.get("unavailableTimeSpans").size());
+        assertThat(employee.get("unavailableTimeSpans").size()).isEqualTo(1);
     }
 
     @Test
@@ -120,10 +119,10 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         JsonNode employee = modelInputPatched.get("employees").get(0);
-        assertEquals(0, employee.get("contracts").size());
+        assertThat(employee.get("contracts").size()).isEqualTo(0);
     }
 
     @Test
@@ -144,10 +143,10 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         JsonNode employee = modelInputPatched.get("employees").get(0);
-        assertEquals(0, employee.get("contracts").size());
+        assertThat(employee.get("contracts").size()).isEqualTo(0);
     }
 
     @Test
@@ -168,14 +167,14 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         ArrayNode skills = (ArrayNode) emp.get("skills");
-        assertEquals(2, skills.size());
+        assertThat(skills.size()).isEqualTo(2);
 
         List<String> skillIds = skills.valueStream().map(item -> item.get("id").asText()).toList();
-        assertIterableEquals(List.of("Ambulance", "Test"), skillIds);
+        assertThat(skillIds).containsExactlyElementsOf(List.of("Ambulance", "Test"));
     }
 
     @Test
@@ -196,7 +195,7 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
     }
 
@@ -222,11 +221,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         ArrayNode preferredTimeSpans = (ArrayNode) emp.get("preferredTimeSpans");
-        assertEquals(3, preferredTimeSpans.size());
+        assertThat(preferredTimeSpans.size()).isEqualTo(3);
     }
 
     @Test
@@ -247,11 +246,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         ArrayNode skills = (ArrayNode) emp.get("skills");
-        assertEquals(0, skills.size());
+        assertThat(skills.size()).isEqualTo(0);
     }
 
     @Test
@@ -272,11 +271,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         ArrayNode skills = (ArrayNode) emp.get("skills");
-        assertEquals(0, skills.size());
+        assertThat(skills.size()).isEqualTo(0);
     }
 
     @Test
@@ -297,13 +296,13 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         ArrayNode skills = (ArrayNode) emp.get("skills");
-        assertEquals(1, skills.size());
+        assertThat(skills.size()).isEqualTo(1);
 
-        assertEquals("Test", skills.get(0).get("id").textValue());
+        assertThat(skills.get(0).get("id").textValue()).isEqualTo("Test");
     }
 
     @Test
@@ -324,11 +323,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees);
 
         ObjectNode emp = (ObjectNode) modelInputPatched.at("/employees/0");
         String timezoneId = emp.get("timeZoneId").textValue();
-        assertEquals("-08:00", timezoneId);
+        assertThat(timezoneId).isEqualTo("-08:00");
     }
 
     @Test
@@ -348,7 +347,7 @@ public class EmployeeSchedulingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees - 5, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees - 5);
     }
 
     @Test
@@ -369,7 +368,7 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees - 1, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees - 1);
     }
 
     @Test
@@ -390,7 +389,7 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfEmployees - 1, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfEmployees - 1);
     }
 
     @Test
@@ -420,12 +419,12 @@ public class EmployeeSchedulingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfShiftsAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts + 1, numberOfShiftsAfterPatch);
+        assertThat(numberOfShiftsAfterPatch).isEqualTo(numberOfShifts + 1);
 
         JsonNode addedShift = modelInputPatched.get("shifts").get(numberOfShiftsAfterPatch - 1);
-        assertEquals("Sun M Ambulance", addedShift.get("id").asText());
-        assertEquals("Ambulance", addedShift.get("requiredSkills").get(0).asText());
-        assertEquals("Morning", addedShift.get("tags").get(0).asText());
+        assertThat(addedShift.get("id").asText()).isEqualTo("Sun M Ambulance");
+        assertThat(addedShift.get("requiredSkills").get(0).asText()).isEqualTo("Ambulance");
+        assertThat(addedShift.get("tags").get(0).asText()).isEqualTo("Morning");
     }
 
     @Test
@@ -446,12 +445,12 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts);
 
         JsonNode shifts = modelInputPatched.get("shifts").get(0);
-        assertEquals(2, shifts.get("tags").size());
-        assertEquals("Morning", shifts.get("tags").get(0).asText());
-        assertEquals("Night", shifts.get("tags").get(1).asText());
+        assertThat(shifts.get("tags").size()).isEqualTo(2);
+        assertThat(shifts.get("tags").get(0).asText()).isEqualTo("Morning");
+        assertThat(shifts.get("tags").get(1).asText()).isEqualTo("Night");
     }
 
     @Test
@@ -472,11 +471,11 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("employees").size();
 
-        assertEquals(numberOfShifts, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts);
 
         JsonNode tags = modelInputPatched.get("employees").get(0);
-        assertEquals(1, tags.get("tags").size());
-        assertEquals("Night", tags.get("tags").get(0).asText());
+        assertThat(tags.get("tags").size()).isEqualTo(1);
+        assertThat(tags.get("tags").get(0).asText()).isEqualTo("Night");
 
         patch = """
                 [
@@ -486,8 +485,8 @@ public class EmployeeSchedulingJsonPatchTest {
 
         modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         tags = modelInputPatched.get("employees").get(0);
-        assertEquals(1, tags.get("tags").size());
-        assertEquals("Day", tags.get("tags").get(0).asText());
+        assertThat(tags.get("tags").size()).isEqualTo(1);
+        assertThat(tags.get("tags").get(0).asText()).isEqualTo("Day");
     }
 
     @Test
@@ -508,12 +507,12 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts);
 
         JsonNode shifts = modelInputPatched.get("shifts").get(0);
-        assertEquals(2, shifts.get("requiredSkills").size());
-        assertEquals("Ambulance", shifts.get("requiredSkills").get(0).asText());
-        assertEquals("Surgery", shifts.get("requiredSkills").get(1).asText());
+        assertThat(shifts.get("requiredSkills").size()).isEqualTo(2);
+        assertThat(shifts.get("requiredSkills").get(0).asText()).isEqualTo("Ambulance");
+        assertThat(shifts.get("requiredSkills").get(1).asText()).isEqualTo("Surgery");
     }
 
     @Test
@@ -534,10 +533,10 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts);
 
         JsonNode shifts = modelInputPatched.get("shifts").get(0);
-        assertEquals(0, shifts.get("requiredSkills").size());
+        assertThat(shifts.get("requiredSkills").size()).isEqualTo(0);
     }
 
     @Test
@@ -558,10 +557,10 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts);
 
         JsonNode shifts = modelInputPatched.get("shifts").get(0);
-        assertEquals(0, shifts.get("requiredSkills").size());
+        assertThat(shifts.get("requiredSkills").size()).isEqualTo(0);
     }
 
     @Test
@@ -582,6 +581,6 @@ public class EmployeeSchedulingJsonPatchTest {
 
         int numberOfEmployeesAfterPatch = modelInputPatched.get("shifts").size();
 
-        assertEquals(numberOfShifts - 1, numberOfEmployeesAfterPatch);
+        assertThat(numberOfEmployeesAfterPatch).isEqualTo(numberOfShifts - 1);
     }
 }

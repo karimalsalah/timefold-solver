@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.entity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testdomain.inheritance.entity.multiple.baseannotated.classes.mixed.TestMultipleMixedConstraintProvider;
 import ai.timefold.solver.core.testdomain.inheritance.entity.multiple.baseannotated.classes.mixed.TestdataMultipleMixedBaseEntity;
@@ -24,10 +23,9 @@ class TimefoldProcessorMultipleMixedAnnotatedTest {
                     .addClasses(TestMultipleMixedConstraintProvider.class, TestdataMultipleMixedSolution.class,
                             TestdataMultipleMixedChildEntity.class, TestdataMultipleMixedBaseEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(
-                        exception.getMessage().contains(
-                                "Mixed inheritance is not permitted."));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage().contains(
+                        "Mixed inheritance is not permitted.")).isTrue();
             });
 
     /**

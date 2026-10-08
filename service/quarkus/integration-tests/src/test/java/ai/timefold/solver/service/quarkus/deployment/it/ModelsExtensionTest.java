@@ -1,7 +1,6 @@
 package ai.timefold.solver.service.quarkus.deployment.it;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import jakarta.inject.Inject;
 
@@ -25,9 +24,9 @@ public class ModelsExtensionTest {
 
     @Test
     void testStorageClassGeneratedForModel() {
-        assertNotNull(storage);
-        assertInstanceOf(InMemoryStorage.class, storage);
+        assertThat(storage).isNotNull();
+        assertThat(storage).isInstanceOf(InMemoryStorage.class);
 
-        assertNotNull(storageService);
+        assertThat(storageService).isNotNull();
     }
 }

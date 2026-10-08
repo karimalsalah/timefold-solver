@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.entity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testconstraint.DummyConstraintProvider;
 import ai.timefold.solver.core.testdomain.inheritance.entity.single.baseannotated.classes.replacevar.TestdataReplaceVarChildEntity;
@@ -23,10 +22,9 @@ class TimefoldProcessorReplaceVarTest {
                     .addClasses(DummyConstraintProvider.class, TestdataReplaceVarSolution.class,
                             TestdataReplaceVarChildEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(
-                        exception.getMessage().contains(
-                                "redefines the genuine variables ([value]), which is not permitted."));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage().contains(
+                        "redefines the genuine variables ([value]), which is not permitted.")).isTrue();
             });
 
     /**

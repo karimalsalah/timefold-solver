@@ -2,7 +2,6 @@ package ai.timefold.solver.spring.boot.autoconfigure;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import ai.timefold.solver.core.api.score.SimpleScore;
 import ai.timefold.solver.core.api.solver.SolverFactory;
@@ -92,7 +91,7 @@ class TimefoldSolverSolutionInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataBothAnnotatedAbstractExtendedSolution.generateSolution(3, 2);
                     var solution = (TestdataBothAnnotatedAbstractExtendedSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(8));
                 }))
                 .doesNotThrowAnyException();
@@ -108,7 +107,7 @@ class TimefoldSolverSolutionInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataBothAnnotatedExtendedSolution.generateSolution(3, 2);
                     var solution = (TestdataBothAnnotatedExtendedSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(16));
                 }))
                 .doesNotThrowAnyException();
@@ -140,7 +139,7 @@ class TimefoldSolverSolutionInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataOnlyBaseAnnotatedExtendedSolution.generateSolution(3, 2);
                     var solution = (TestdataOnlyBaseAnnotatedExtendedSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
                 }))
                 .doesNotThrowAnyException();

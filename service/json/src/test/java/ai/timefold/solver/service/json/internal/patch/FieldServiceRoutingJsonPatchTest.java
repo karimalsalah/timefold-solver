@@ -1,8 +1,6 @@
 package ai.timefold.solver.service.json.internal.patch;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.util.List;
@@ -76,11 +74,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles + 1, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles + 1);
 
         JsonNode addedVehicle = modelInputPatched.get("vehicles").get(numberOfVehiclesAfterPatch - 1);
-        assertEquals("AnnExtra", addedVehicle.get("id").asText());
-        assertEquals("VAN", addedVehicle.get("vehicleType").asText());
+        assertThat(addedVehicle.get("id").asText()).isEqualTo("AnnExtra");
+        assertThat(addedVehicle.get("vehicleType").asText()).isEqualTo("VAN");
     }
 
     @Test
@@ -135,10 +133,10 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(2, vehicle.get("shifts").size());
+        assertThat(vehicle.get("shifts").size()).isEqualTo(2);
 
     }
 
@@ -161,11 +159,11 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(1, vehicle.at("/shifts/0/tags").size());
-        assertEquals("emergency", vehicle.at("/shifts/0/tags").get(0).asText());
+        assertThat(vehicle.at("/shifts/0/tags").size()).isEqualTo(1);
+        assertThat(vehicle.at("/shifts/0/tags").get(0).asText()).isEqualTo("emergency");
 
     }
 
@@ -188,11 +186,11 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(1, vehicle.at("/shifts/0/tags").size());
-        assertEquals("emergency", vehicle.at("/shifts/0/tags").get(0).asText());
+        assertThat(vehicle.at("/shifts/0/tags").size()).isEqualTo(1);
+        assertThat(vehicle.at("/shifts/0/tags").get(0).asText()).isEqualTo("emergency");
 
     }
 
@@ -219,12 +217,12 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(2, vehicle.at("/shifts/0/skills").size());
-        assertEquals("electrician", vehicle.at("/shifts/0/skills").get(0).get("name").asText());
-        assertEquals("musician", vehicle.at("/shifts/0/skills").get(1).get("name").asText());
+        assertThat(vehicle.at("/shifts/0/skills").size()).isEqualTo(2);
+        assertThat(vehicle.at("/shifts/0/skills").get(0).get("name").asText()).isEqualTo("electrician");
+        assertThat(vehicle.at("/shifts/0/skills").get(1).get("name").asText()).isEqualTo("musician");
 
     }
 
@@ -251,11 +249,11 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(1, vehicle.at("/shifts/0/skills").size());
-        assertEquals("musician", vehicle.at("/shifts/0/skills").get(0).get("name").asText());
+        assertThat(vehicle.at("/shifts/0/skills").size()).isEqualTo(1);
+        assertThat(vehicle.at("/shifts/0/skills").get(0).get("name").asText()).isEqualTo("musician");
 
     }
 
@@ -295,12 +293,12 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(2, vehicle.at("/shifts/0/requiredBreaks").size());
-        assertEquals("cd4c29ed Lunch", vehicle.at("/shifts/0/requiredBreaks").get(0).get("id").asText());
-        assertEquals("cd4c29ed Dinner", vehicle.at("/shifts/0/requiredBreaks").get(1).get("id").asText());
+        assertThat(vehicle.at("/shifts/0/requiredBreaks").size()).isEqualTo(2);
+        assertThat(vehicle.at("/shifts/0/requiredBreaks").get(0).get("id").asText()).isEqualTo("cd4c29ed Lunch");
+        assertThat(vehicle.at("/shifts/0/requiredBreaks").get(1).get("id").asText()).isEqualTo("cd4c29ed Dinner");
     }
 
     @Test
@@ -322,10 +320,10 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(0, vehicle.at("/shifts/0/requiredBreaks").size());
+        assertThat(vehicle.at("/shifts/0/requiredBreaks").size()).isEqualTo(0);
     }
 
     @Test
@@ -347,10 +345,10 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(0, vehicle.at("/shifts/0/requiredBreaks").size());
+        assertThat(vehicle.at("/shifts/0/requiredBreaks").size()).isEqualTo(0);
     }
 
     @Test
@@ -372,10 +370,10 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(0, vehicle.at("/shifts").size());
+        assertThat(vehicle.at("/shifts").size()).isEqualTo(0);
     }
 
     @Test
@@ -397,10 +395,10 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
         int numberOfVehiclesAfterPatch = modelInputPatched.get("vehicles").size();
 
-        assertEquals(numberOfVehicles, numberOfVehiclesAfterPatch);
+        assertThat(numberOfVehiclesAfterPatch).isEqualTo(numberOfVehicles);
 
         JsonNode vehicle = modelInputPatched.get("vehicles").get(0);
-        assertEquals(0, vehicle.at("/shifts").size());
+        assertThat(vehicle.at("/shifts").size()).isEqualTo(0);
     }
 
     @Test
@@ -443,11 +441,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits + 1, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits + 1);
 
         JsonNode addedVisit = modelInputPatched.get("visits").get(numberOfVisitsAfterPatch - 1);
-        assertEquals("6e57fcdx", addedVisit.get("id").asText());
-        assertEquals("Cole Inc. extra", addedVisit.get("name").asText());
+        assertThat(addedVisit.get("id").asText()).isEqualTo("6e57fcdx");
+        assertThat(addedVisit.get("name").asText()).isEqualTo("Cole Inc. extra");
     }
 
     @Test
@@ -472,12 +470,12 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode visit = modelInputPatched.get("visits").get(0);
-        assertEquals(2, visit.at("/requiredSkills").size());
-        assertEquals("plumber", visit.at("/requiredSkills").get(0).get("name").asText());
-        assertEquals("electrician", visit.at("/requiredSkills").get(1).get("name").asText());
+        assertThat(visit.at("/requiredSkills").size()).isEqualTo(2);
+        assertThat(visit.at("/requiredSkills").get(0).get("name").asText()).isEqualTo("plumber");
+        assertThat(visit.at("/requiredSkills").get(1).get("name").asText()).isEqualTo("electrician");
     }
 
     @Test
@@ -498,10 +496,10 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode visit = modelInputPatched.get("visits").get(0);
-        assertEquals(0, visit.at("/requiredSkills").size());
+        assertThat(visit.at("/requiredSkills").size()).isEqualTo(0);
     }
 
     @Test
@@ -522,7 +520,7 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits - 1, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits - 1);
     }
 
     @Test
@@ -566,11 +564,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode addedVisit = modelInputPatched.get("visits").get(numberOfVisitsAfterPatch - 1);
-        assertEquals("6e57fcdx", addedVisit.get("id").asText());
-        assertEquals("Cole Inc. extra", addedVisit.get("name").asText());
+        assertThat(addedVisit.get("id").asText()).isEqualTo("6e57fcdx");
+        assertThat(addedVisit.get("name").asText()).isEqualTo("Cole Inc. extra");
     }
 
     @Test
@@ -614,11 +612,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode addedVisit = modelInputPatched.get("visits").get(0);
-        assertEquals("6e57fcdx", addedVisit.get("id").asText());
-        assertEquals("Cole Inc. extra", addedVisit.get("name").asText());
+        assertThat(addedVisit.get("id").asText()).isEqualTo("6e57fcdx");
+        assertThat(addedVisit.get("name").asText()).isEqualTo("Cole Inc. extra");
     }
 
     @Test
@@ -640,10 +638,10 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode visit = modelInputPatched.get("visits").get(0);
-        assertEquals("5", visit.get("priority").asText());
+        assertThat(visit.get("priority").asText()).isEqualTo("5");
     }
 
     @Test
@@ -668,11 +666,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         JsonNode visit = modelInputPatched.get("visits").get(0);
-        assertEquals("50.68906251585709", visit.get("location").get(0).asText());
-        assertEquals("-90.44268080179887", visit.get("location").get(1).asText());
+        assertThat(visit.get("location").get(0).asText()).isEqualTo("50.68906251585709");
+        assertThat(visit.get("location").get(1).asText()).isEqualTo("-90.44268080179887");
     }
 
     @Test
@@ -694,13 +692,13 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitsAfterPatch = modelInputPatched.get("visits").size();
 
-        assertEquals(numberOfVisits, numberOfVisitsAfterPatch);
+        assertThat(numberOfVisitsAfterPatch).isEqualTo(numberOfVisits);
 
         List<Boolean> pinnedRequestedForPriority6 =
                 modelInputPatched.get("visits").valueStream().filter(item -> item.get("priority").asText().equals("6"))
                         .map(item -> item.get("pinningRequested").asBoolean()).toList();
-        assertEquals(10, pinnedRequestedForPriority6.size());
-        assertTrue(pinnedRequestedForPriority6.stream().allMatch(v -> v == true));
+        assertThat(pinnedRequestedForPriority6.size()).isEqualTo(10);
+        assertThat(pinnedRequestedForPriority6.stream().allMatch(v -> v == true)).isTrue();
     }
 
     @Test
@@ -750,11 +748,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups + 1, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups + 1);
 
         JsonNode addedVisitGroup = modelInputPatched.get("visitGroups").get(numberOfVisitGroupsAfterPatch - 1);
-        assertEquals("ce9aa5ex", addedVisitGroup.get("id").asText());
-        assertEquals(1, addedVisitGroup.get("visits").size());
+        assertThat(addedVisitGroup.get("id").asText()).isEqualTo("ce9aa5ex");
+        assertThat(addedVisitGroup.get("visits").size()).isEqualTo(1);
     }
 
     @Test
@@ -798,13 +796,13 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups);
 
         JsonNode visitGroup = modelInputPatched.get("visitGroups").get(0);
-        assertEquals("ce9aa5e4", visitGroup.get("id").asText());
-        assertEquals(4, visitGroup.get("visits").size());
-        assertEquals("0d7f6e5x", visitGroup.get("visits").get(3).get("id").asText());
-        assertEquals("Mick Robinson 1 / 3", visitGroup.get("visits").get(3).get("name").asText());
+        assertThat(visitGroup.get("id").asText()).isEqualTo("ce9aa5e4");
+        assertThat(visitGroup.get("visits").size()).isEqualTo(4);
+        assertThat(visitGroup.get("visits").get(3).get("id").asText()).isEqualTo("0d7f6e5x");
+        assertThat(visitGroup.get("visits").get(3).get("name").asText()).isEqualTo("Mick Robinson 1 / 3");
     }
 
     @Test
@@ -848,13 +846,13 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups);
 
         JsonNode visitGroup = modelInputPatched.get("visitGroups").get(0);
-        assertEquals("ce9aa5e4", visitGroup.get("id").asText());
-        assertEquals(3, visitGroup.get("visits").size());
-        assertEquals("0d7f6e5x", visitGroup.get("visits").get(2).get("id").asText());
-        assertEquals("Mick Robinson 1 / 3", visitGroup.get("visits").get(2).get("name").asText());
+        assertThat(visitGroup.get("id").asText()).isEqualTo("ce9aa5e4");
+        assertThat(visitGroup.get("visits").size()).isEqualTo(3);
+        assertThat(visitGroup.get("visits").get(2).get("id").asText()).isEqualTo("0d7f6e5x");
+        assertThat(visitGroup.get("visits").get(2).get("name").asText()).isEqualTo("Mick Robinson 1 / 3");
     }
 
     @Test
@@ -875,11 +873,11 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups);
 
         JsonNode visitGroup = modelInputPatched.get("visitGroups").get(0);
-        assertEquals("ce9aa5e4", visitGroup.get("id").asText());
-        assertEquals(2, visitGroup.get("visits").size());
+        assertThat(visitGroup.get("id").asText()).isEqualTo("ce9aa5e4");
+        assertThat(visitGroup.get("visits").size()).isEqualTo(2);
     }
 
     @Test
@@ -900,10 +898,10 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups);
 
         JsonNode skills = modelInputPatched.get("skills");
-        assertEquals(3, skills.size());
+        assertThat(skills.size()).isEqualTo(3);
     }
 
     @Test
@@ -924,10 +922,10 @@ public class FieldServiceRoutingJsonPatchTest {
 
         int numberOfVisitGroupsAfterPatch = modelInputPatched.get("visitGroups").size();
 
-        assertEquals(numberOfVisitGroups, numberOfVisitGroupsAfterPatch);
+        assertThat(numberOfVisitGroupsAfterPatch).isEqualTo(numberOfVisitGroups);
 
         JsonNode skills = modelInputPatched.get("skills");
-        assertEquals(5, skills.size());
+        assertThat(skills.size()).isEqualTo(5);
     }
 
     @Test
@@ -945,7 +943,7 @@ public class FieldServiceRoutingJsonPatchTest {
         JsonNode modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInput);
 
         JsonNode freezeDeparturesBeforeTime = modelInputPatched.get("freezeDeparturesBeforeTime");
-        assertEquals("2027-02-01T14:10:00Z", freezeDeparturesBeforeTime.textValue());
+        assertThat(freezeDeparturesBeforeTime.textValue()).isEqualTo("2027-02-01T14:10:00Z");
 
         patch = """
                 [
@@ -954,6 +952,6 @@ public class FieldServiceRoutingJsonPatchTest {
                 """;
         modelInputPatched = JsonPatch.apply((ArrayNode) mapper.readTree(patch), modelInputPatched);
 
-        assertNull(modelInputPatched.get("freezeDeparturesBeforeTime"));
+        assertThat(modelInputPatched.get("freezeDeparturesBeforeTime")).isNull();
     }
 }

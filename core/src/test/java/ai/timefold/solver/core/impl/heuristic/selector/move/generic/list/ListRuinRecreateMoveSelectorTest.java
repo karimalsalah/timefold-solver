@@ -1,7 +1,7 @@
 package ai.timefold.solver.core.impl.heuristic.selector.move.generic.list;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.List;
 import java.util.Objects;
@@ -68,7 +68,7 @@ class ListRuinRecreateMoveSelectorTest extends AbstractMeterTest {
                                 .withMoveSelectorConfig(new ListRuinRecreateMoveSelectorConfig())));
         var problem = TestdataListSolution.generateUninitializedSolution(10, 3);
         var solver = SolverFactory.create(solverConfig).buildSolver();
-        assertDoesNotThrow(() -> solver.solve(problem));
+        assertThatCode(() -> solver.solve(problem)).doesNotThrowAnyException();
     }
 
     @Test
@@ -151,7 +151,7 @@ class ListRuinRecreateMoveSelectorTest extends AbstractMeterTest {
                 .mapToObj(id -> new TestdataAllowsUnassignedValuesListValue("v" + id))
                 .toList());
         var solver = SolverFactory.create(solverConfig).buildSolver();
-        assertDoesNotThrow(() -> solver.solve(problem));
+        assertThatCode(() -> solver.solve(problem)).doesNotThrowAnyException();
     }
 
     @Test
@@ -173,7 +173,7 @@ class ListRuinRecreateMoveSelectorTest extends AbstractMeterTest {
         // with the initial solution assigning all values to that single entity
         problem.getEntityList().getFirst().getValueList().addAll(problem.getValueList());
         var solver = SolverFactory.create(solverConfig).buildSolver();
-        var solution = (TestdataAllowsUnassignedValuesListSolution) assertDoesNotThrow(() -> solver.solve(problem));
+        var solution = (TestdataAllowsUnassignedValuesListSolution) solver.solve(problem);
         // Two values must remain unassigned
         assertThat(solution.getEntityList().getFirst().getValueList()).hasSize(1);
     }

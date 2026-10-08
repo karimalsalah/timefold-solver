@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.IntStream;
 
@@ -42,6 +42,6 @@ class TimefoldProcessorPlanningIdTest {
                 .toList());
 
         TestdataSolution solution = solverFactory.buildSolver().solve(problem);
-        assertNotNull(solution);
+        assertThat(solution).isNotNull();
     }
 }
