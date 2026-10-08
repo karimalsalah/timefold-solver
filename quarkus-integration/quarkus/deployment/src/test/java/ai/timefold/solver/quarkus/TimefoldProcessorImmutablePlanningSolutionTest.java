@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testconstraint.DummyConstraintProvider;
 import ai.timefold.solver.core.testdomain.immutable.record.TestdataRecordEntity;
@@ -24,8 +23,8 @@ class TimefoldProcessorImmutablePlanningSolutionTest {
                     .addClasses(DummyConstraintProvider.class, TestdataRecordSolution.class,
                             TestdataRecordEntity.class, TestdataRecordValue.class))
             .assertException(exception -> {
-                assertEquals(IllegalArgumentException.class, exception.getClass());
-                assertTrue(exception.getMessage().contains("cannot be a record as it needs to be mutable"));
+                assertThat(exception.getClass()).isEqualTo(IllegalArgumentException.class);
+                assertThat(exception.getMessage().contains("cannot be a record as it needs to be mutable")).isTrue();
             });
 
     @Test

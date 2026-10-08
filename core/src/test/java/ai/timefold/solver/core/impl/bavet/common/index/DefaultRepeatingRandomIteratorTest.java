@@ -3,7 +3,7 @@ package ai.timefold.solver.core.impl.bavet.common.index;
 import static ai.timefold.solver.core.impl.bavet.common.index.AbstractIndexerTest.toEntries;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.SoftAssertions.*;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.util.List;
 import java.util.NoSuchElementException;

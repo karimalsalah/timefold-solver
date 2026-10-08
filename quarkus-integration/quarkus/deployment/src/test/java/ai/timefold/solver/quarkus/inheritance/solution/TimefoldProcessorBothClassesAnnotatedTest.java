@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.solution;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ai.timefold.solver.core.testdomain.TestdataEntity;
 import ai.timefold.solver.core.testdomain.inheritance.solution.baseannotated.childtoo.TestdataBothAnnotatedChildEntity;
@@ -28,9 +27,10 @@ class TimefoldProcessorBothClassesAnnotatedTest {
                             TestdataBothAnnotatedSolution.class, TestdataBothAnnotatedChildEntity.class,
                             TestdataEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(exception.getMessage().contains("Multiple classes"));
-                assertTrue(exception.getMessage().contains("found in the classpath with a @PlanningSolution annotation."));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage().contains("Multiple classes")).isTrue();
+                assertThat(exception.getMessage().contains("found in the classpath with a @PlanningSolution annotation."))
+                        .isTrue();
             });
 
     /**

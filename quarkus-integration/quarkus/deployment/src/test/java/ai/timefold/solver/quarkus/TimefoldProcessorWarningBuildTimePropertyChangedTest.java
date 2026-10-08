@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.logging.Level;
 
@@ -31,7 +31,7 @@ class TimefoldProcessorWarningBuildTimePropertyChangedTest {
     @Test
     void solverProperties() {
         config.assertLogRecords(logRecords -> {
-            assertEquals(1, logRecords.size(), "expected warning to be generated");
+            assertThat(logRecords.size()).as("expected warning to be generated").isEqualTo(1);
         });
     }
 }

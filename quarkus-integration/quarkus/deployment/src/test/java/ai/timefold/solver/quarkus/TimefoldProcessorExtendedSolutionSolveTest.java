@@ -1,9 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
@@ -48,13 +45,13 @@ class TimefoldProcessorExtendedSolutionSolveTest {
 
     @Test
     void singletonSolverFactory() {
-        assertNotNull(solverFactory);
+        assertThat(solverFactory).isNotNull();
         // There is only one ScoreDirectorFactory instance
-        assertSame(((DefaultSolverFactory<TestdataQuarkusSolution>) solverFactory).getScoreDirectorFactory(),
-                ((DefaultSolutionManager<TestdataQuarkusSolution, SimpleScore>) solutionManager).getScoreDirectorFactory());
-        assertNotNull(solverManager);
+        assertThat(((DefaultSolutionManager<TestdataQuarkusSolution, SimpleScore>) solutionManager).getScoreDirectorFactory())
+                .isSameAs(((DefaultSolverFactory<TestdataQuarkusSolution>) solverFactory).getScoreDirectorFactory());
+        assertThat(solverManager).isNotNull();
         // There is only one SolverFactory instance
-        assertSame(solverFactory, ((DefaultSolverManager<TestdataQuarkusSolution>) solverManager).getSolverFactory());
+        assertThat(((DefaultSolverManager<TestdataQuarkusSolution>) solverManager).getSolverFactory()).isSameAs(solverFactory);
     }
 
     @Test
@@ -68,9 +65,9 @@ class TimefoldProcessorExtendedSolutionSolveTest {
                 .toList());
         var solverJob = solverManager.solve(1L, problem);
         var solution = (TestdataExtendedQuarkusSolution) solverJob.getFinalBestSolution();
-        assertNotNull(solution);
-        assertTrue(solution.getScore().score() >= 0);
-        assertEquals("Extra Data", solution.getExtraData());
+        assertThat(solution).isNotNull();
+        assertThat(solution.getScore().score() >= 0).isTrue();
+        assertThat(solution.getExtraData()).isEqualTo("Extra Data");
     }
 
 }

@@ -1,8 +1,8 @@
 package ai.timefold.solver.service.quarkus.deployment;
 
 import static ai.timefold.solver.service.quarkus.deployment.TimefoldModelDescriptorProcessor.getResourceTypeFromPath;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import ai.timefold.solver.service.definition.api.ResourceType;
 
@@ -12,34 +12,29 @@ class ModelResourceTypeParsingTest {
 
     @Test
     void versionedPath() {
-        assertEquals(new ResourceType("schedules"), getResourceTypeFromPath("/v1/schedules"));
+        assertThat(getResourceTypeFromPath("/v1/schedules")).isEqualTo(new ResourceType("schedules"));
     }
 
     @Test
     void nonVersionedPath() {
-        assertEquals(new ResourceType("schedules"), getResourceTypeFromPath("/schedules"));
+        assertThat(getResourceTypeFromPath("/schedules")).isEqualTo(new ResourceType("schedules"));
     }
 
     @Test
     void emptyPath() {
-        IllegalStateException exception = assertThrows(IllegalStateException.class,
-                () -> getResourceTypeFromPath(""));
-        assertEquals("Could not derive model resource type: ModelRest @Path value is empty.", exception.getMessage());
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> getResourceTypeFromPath(""))
+                .withMessage("Could not derive model resource type: ModelRest @Path value is empty.");
     }
 
     @Test
     void missingPathSegment() {
-        IllegalStateException exception = assertThrows(IllegalStateException.class,
-                () -> getResourceTypeFromPath("/"));
-        assertEquals("Could not derive model resource type: ModelRest @Path does not contain path segments.",
-                exception.getMessage());
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> getResourceTypeFromPath("/"))
+                .withMessage("Could not derive model resource type: ModelRest @Path does not contain path segments.");
     }
 
     @Test
     void versionOnlyPath() {
-        IllegalStateException exception = assertThrows(IllegalStateException.class,
-                () -> getResourceTypeFromPath("/v1"));
-        assertEquals("Could not derive model resource type: ModelRest @Path only contains API version but no resource segment.",
-                exception.getMessage());
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> getResourceTypeFromPath("/v1")).withMessage(
+                "Could not derive model resource type: ModelRest @Path only contains API version but no resource segment.");
     }
 }

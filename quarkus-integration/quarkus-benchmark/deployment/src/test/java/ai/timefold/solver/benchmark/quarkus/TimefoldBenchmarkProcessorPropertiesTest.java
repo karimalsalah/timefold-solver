@@ -1,7 +1,7 @@
 
 package ai.timefold.solver.benchmark.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 
@@ -34,9 +34,9 @@ class TimefoldBenchmarkProcessorPropertiesTest {
 
     @Test
     void terminationProperties() {
-        assertEquals(Duration.ofMinutes(5), plannerBenchmarkConfig.getSolverBenchmarkConfigList().get(0)
-                .getSolverConfig().getTerminationConfig().getSpentLimit());
-        assertEquals("0hard/-1200soft", plannerBenchmarkConfig.getSolverBenchmarkConfigList().get(0)
-                .getSolverConfig().getTerminationConfig().getBestScoreLimit());
+        assertThat(plannerBenchmarkConfig.getSolverBenchmarkConfigList().get(0)
+                .getSolverConfig().getTerminationConfig().getSpentLimit()).isEqualTo(Duration.ofMinutes(5));
+        assertThat(plannerBenchmarkConfig.getSolverBenchmarkConfigList().get(0)
+                .getSolverConfig().getTerminationConfig().getBestScoreLimit()).isEqualTo("0hard/-1200soft");
     }
 }

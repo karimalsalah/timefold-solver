@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -119,11 +119,11 @@ class TimefoldProcessorOverridePropertiesAtRuntimeTest {
                 .when()
                 .get("/timefold/test/solver-config")
                 .asInputStream());
-        assertEquals("6h", solverConfigProperties.get("termination.diminished-returns.sliding-window-duration"));
-        assertEquals("0.5", solverConfigProperties.get("termination.diminished-returns.minimum-improvement-ratio"));
-        assertEquals("7", solverConfigProperties.get("termination.bestScoreLimit"));
-        assertEquals("3", solverConfigProperties.get("moveThreadCount"));
-        assertEquals("123", solverConfigProperties.get("randomSeed"));
+        assertThat(solverConfigProperties.get("termination.diminished-returns.sliding-window-duration")).isEqualTo("6h");
+        assertThat(solverConfigProperties.get("termination.diminished-returns.minimum-improvement-ratio")).isEqualTo("0.5");
+        assertThat(solverConfigProperties.get("termination.bestScoreLimit")).isEqualTo("7");
+        assertThat(solverConfigProperties.get("moveThreadCount")).isEqualTo("3");
+        assertThat(solverConfigProperties.get("randomSeed")).isEqualTo("123");
     }
 
     @Test
@@ -135,7 +135,7 @@ class TimefoldProcessorOverridePropertiesAtRuntimeTest {
                 .when()
                 .get("/timefold/test/solver-manager-config")
                 .asInputStream());
-        assertEquals("10", solverManagerProperties.get("parallelSolverCount"));
+        assertThat(solverManagerProperties.get("parallelSolverCount")).isEqualTo("10");
     }
 
 }

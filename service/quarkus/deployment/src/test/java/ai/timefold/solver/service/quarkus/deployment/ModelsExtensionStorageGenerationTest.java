@@ -1,6 +1,6 @@
 package ai.timefold.solver.service.quarkus.deployment;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import jakarta.inject.Inject;
 
@@ -40,7 +40,7 @@ public class ModelsExtensionStorageGenerationTest {
 
     @Test
     void testStorageClassGeneratedForModel() {
-        assertNotNull(storage);
-        assertNotNull(storageService);
+        assertThat(storage).isNotNull();
+        assertThat(storageService).isNotNull();
     }
 }

@@ -1,7 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -45,11 +44,11 @@ class TimefoldProcessorUseGettersSettersTest {
                 .collect(Collectors.toList()));
         var solverJob = solverManager.solve(1L, problem);
         var solution = solverJob.getFinalBestSolution();
-        assertNotNull(solution);
-        assertTrue(solution.getScore().score() >= 0);
+        assertThat(solution).isNotNull();
+        assertThat(solution.getScore().score() >= 0).isTrue();
         for (var entity : solution.getEntityList()) {
-            assertTrue(entity.getGetterCallCount() > 0);
-            assertTrue(entity.getSetterCallCount() > 0);
+            assertThat(entity.getGetterCallCount() > 0).isTrue();
+            assertThat(entity.getSetterCallCount() > 0).isTrue();
         }
     }
 

@@ -1,7 +1,7 @@
 package ai.timefold.solver.quarkus;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

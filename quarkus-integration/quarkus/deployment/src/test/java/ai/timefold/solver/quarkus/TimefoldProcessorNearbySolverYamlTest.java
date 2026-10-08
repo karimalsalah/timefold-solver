@@ -1,9 +1,7 @@
 
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 
@@ -41,18 +39,18 @@ class TimefoldProcessorNearbySolverYamlTest {
 
     @Test
     void solverProperties() {
-        assertEquals(EnvironmentMode.FULL_ASSERT, solverConfig.getEnvironmentMode());
-        assertNotNull(solverConfig.getNearbyDistanceMeterClass());
-        assertTrue(solverConfig.getDaemon());
-        assertEquals("2", solverConfig.getMoveThreadCount());
+        assertThat(solverConfig.getEnvironmentMode()).isEqualTo(EnvironmentMode.FULL_ASSERT);
+        assertThat(solverConfig.getNearbyDistanceMeterClass()).isNotNull();
+        assertThat(solverConfig.getDaemon()).isTrue();
+        assertThat(solverConfig.getMoveThreadCount()).isEqualTo("2");
 
-        assertNotNull(solverFactory);
+        assertThat(solverFactory).isNotNull();
     }
 
     @Test
     void terminationProperties() {
-        assertEquals(Duration.ofHours(4), solverConfig.getTerminationConfig().getSpentLimit());
-        assertEquals(Duration.ofHours(5), solverConfig.getTerminationConfig().getUnimprovedSpentLimit());
-        assertEquals(SimpleScore.of(0).toString(), solverConfig.getTerminationConfig().getBestScoreLimit());
+        assertThat(solverConfig.getTerminationConfig().getSpentLimit()).isEqualTo(Duration.ofHours(4));
+        assertThat(solverConfig.getTerminationConfig().getUnimprovedSpentLimit()).isEqualTo(Duration.ofHours(5));
+        assertThat(solverConfig.getTerminationConfig().getBestScoreLimit()).isEqualTo(SimpleScore.of(0).toString());
     }
 }

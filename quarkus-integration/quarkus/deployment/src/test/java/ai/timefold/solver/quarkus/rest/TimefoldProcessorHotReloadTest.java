@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus.rest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import ai.timefold.solver.quarkus.testdomain.normal.TestdataQuarkusConstraintProvider;
 import ai.timefold.solver.quarkus.testdomain.normal.TestdataQuarkusEntity;
@@ -28,11 +28,11 @@ public class TimefoldProcessorHotReloadTest {
     @Test
     void solverConfigHotReload() {
         String resp = RestAssured.get("/solver-config/seconds-spent-limit").asString();
-        assertEquals("secondsSpentLimit=2", resp);
+        assertThat(resp).isEqualTo("secondsSpentLimit=2");
         test.modifyResourceFile("solverConfig.xml", s -> s.replace("<secondsSpentLimit>2</secondsSpentLimit>",
                 "<secondsSpentLimit>9</secondsSpentLimit>"));
         resp = RestAssured.get("/solver-config/seconds-spent-limit").asString();
-        assertEquals("secondsSpentLimit=9", resp);
+        assertThat(resp).isEqualTo("secondsSpentLimit=9");
     }
 
 }

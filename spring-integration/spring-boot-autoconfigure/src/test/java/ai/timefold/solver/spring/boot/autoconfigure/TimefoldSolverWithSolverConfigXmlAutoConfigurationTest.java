@@ -2,9 +2,6 @@ package ai.timefold.solver.spring.boot.autoconfigure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -227,14 +224,14 @@ class TimefoldSolverWithSolverConfigXmlAutoConfigurationTest {
                         "spring.config.location=classpath:ai/timefold/solver/spring/boot/autoconfigure/single-solver/application.yaml")
                 .run(context -> {
                     var solverConfig = context.getBean(SolverConfig.class);
-                    assertNotNull(solverConfig);
-                    assertNotNull(solverConfig.getNearbyDistanceMeterClass());
-                    assertEquals(EnvironmentMode.FULL_ASSERT, solverConfig.getEnvironmentMode());
-                    assertTrue(solverConfig.getDaemon());
-                    assertEquals("2", solverConfig.getMoveThreadCount());
-                    assertEquals(Duration.ofHours(4), solverConfig.getTerminationConfig().getSpentLimit());
-                    assertEquals(Duration.ofHours(5), solverConfig.getTerminationConfig().getUnimprovedSpentLimit());
-                    assertEquals(SimpleScore.of(0).toString(), solverConfig.getTerminationConfig().getBestScoreLimit());
+                    assertThat(solverConfig).isNotNull();
+                    assertThat(solverConfig.getNearbyDistanceMeterClass()).isNotNull();
+                    assertThat(solverConfig.getEnvironmentMode()).isEqualTo(EnvironmentMode.FULL_ASSERT);
+                    assertThat(solverConfig.getDaemon()).isTrue();
+                    assertThat(solverConfig.getMoveThreadCount()).isEqualTo("2");
+                    assertThat(solverConfig.getTerminationConfig().getSpentLimit()).isEqualTo(Duration.ofHours(4));
+                    assertThat(solverConfig.getTerminationConfig().getUnimprovedSpentLimit()).isEqualTo(Duration.ofHours(5));
+                    assertThat(solverConfig.getTerminationConfig().getBestScoreLimit()).isEqualTo(SimpleScore.of(0).toString());
                 });
         assertThatCode(() -> contextRunner
                 .withInitializer(new ConfigDataApplicationContextInitializer())

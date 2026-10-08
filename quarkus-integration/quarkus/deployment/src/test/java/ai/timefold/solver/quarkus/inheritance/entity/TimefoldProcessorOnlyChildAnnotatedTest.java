@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.entity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testconstraint.DummyConstraintProvider;
 import ai.timefold.solver.core.testdomain.inheritance.entity.single.basenot.classes.TestdataBaseNotAnnotatedChildEntity;
@@ -23,10 +22,9 @@ class TimefoldProcessorOnlyChildAnnotatedTest {
                     .addClasses(DummyConstraintProvider.class, TestdataBaseNotAnnotatedSolution.class,
                             TestdataBaseNotAnnotatedChildEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(
-                        exception.getMessage().contains(
-                                "is not annotated with @PlanningEntity but defines genuine or shadow variables."));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage().contains(
+                        "is not annotated with @PlanningEntity but defines genuine or shadow variables.")).isTrue();
             });
 
     /**
