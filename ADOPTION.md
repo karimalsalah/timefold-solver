@@ -62,6 +62,8 @@ new states are actually being written on live dispatches (schema capacity is not
 row counts per state before tuning against them). The 2026-08-23 measurement text above is kept
 verbatim as the historical record.
 
+**Upstream bump 2026-10-16.** Merged `TimefoldAI/timefold-solver` `main` at `9104113b35` (93 upstream commits) into this fork; `core` compiles. The dry-run gate above has **not** been re-run for this bump and still needs running before any integration.
+
 ## Never
 
 - Feed it real customer PII in a sandbox experiment.
