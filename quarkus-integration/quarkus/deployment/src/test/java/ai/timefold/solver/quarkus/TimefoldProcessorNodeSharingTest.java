@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import jakarta.inject.Inject;
 
@@ -32,8 +32,7 @@ public class TimefoldProcessorNodeSharingTest {
 
     @Test
     void isEnabledInSolverConfig() {
-        assertEquals(true,
-                solverConfig.getScoreDirectorFactoryConfig().getConstraintStreamAutomaticNodeSharing());
+        assertThat(solverConfig.getScoreDirectorFactoryConfig().getConstraintStreamAutomaticNodeSharing()).isEqualTo(true);
     }
 
 }

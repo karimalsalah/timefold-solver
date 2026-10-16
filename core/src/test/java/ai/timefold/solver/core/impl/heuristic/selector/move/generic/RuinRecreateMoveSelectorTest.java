@@ -1,7 +1,7 @@
 package ai.timefold.solver.core.impl.heuristic.selector.move.generic;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ class RuinRecreateMoveSelectorTest extends AbstractMeterTest {
                                 .withMoveSelectorConfig(new RuinRecreateMoveSelectorConfig())));
         var problem = TestdataSolution.generateSolution(5, 30);
         var solver = SolverFactory.create(solverConfig).buildSolver();
-        assertDoesNotThrow(() -> solver.solve(problem));
+        assertThatCode(() -> solver.solve(problem)).doesNotThrowAnyException();
     }
 
     @Test
@@ -96,7 +96,7 @@ class RuinRecreateMoveSelectorTest extends AbstractMeterTest {
                                         .withStepCountLimit(100))));
         var problem = TestdataAllowsUnassignedSolution.generateSolution(5, 30);
         var solver = SolverFactory.create(solverConfig).buildSolver();
-        assertDoesNotThrow(() -> solver.solve(problem));
+        assertThatCode(() -> solver.solve(problem)).doesNotThrowAnyException();
     }
 
     @Test
@@ -120,7 +120,7 @@ class RuinRecreateMoveSelectorTest extends AbstractMeterTest {
         }
         var solver = SolverFactory.create(solverConfig).buildSolver();
         // All values must remain unassigned
-        var solution = (TestdataAllowsUnassignedSolution) assertDoesNotThrow(() -> solver.solve(problem));
+        var solution = (TestdataAllowsUnassignedSolution) solver.solve(problem);
         assertThat(solution.getEntityList().getFirst().getValue()).isNull();
         assertThat(solution.getEntityList().get(1).getValue()).isNull();
         assertThat(solution.getEntityList().get(2).getValue()).isNull();

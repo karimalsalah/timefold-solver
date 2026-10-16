@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.entity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testdomain.inheritance.entity.multiple.baseannotated.classes.childnot.TestMultipleChildNotAnnotatedConstraintProvider;
 import ai.timefold.solver.core.testdomain.inheritance.entity.multiple.baseannotated.classes.childnot.TestdataMultipleChildNotAnnotatedBaseEntity;
@@ -28,10 +27,10 @@ class TimefoldProcessorMultipleOnlyBaseAnnotatedTest {
                             TestdataMultipleChildNotAnnotatedSecondChildEntity.class,
                             TestdataMultipleChildNotAnnotatedBaseEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(
-                        exception.getMessage().contains(
-                                "Remove either the entity classes or entity interfaces from the inheritance chain to create a single-level inheritance structure"));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage().contains(
+                        "Remove either the entity classes or entity interfaces from the inheritance chain to create a single-level inheritance structure"))
+                        .isTrue();
             });
 
     /**

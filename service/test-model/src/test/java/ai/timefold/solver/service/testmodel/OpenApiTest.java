@@ -2,7 +2,6 @@ package ai.timefold.solver.service.testmodel;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,15 +53,16 @@ public class OpenApiTest {
     private void assertOperation(OpenAPI openAPI, String operationId) {
         Optional<Operation> operation = findOperationById(openAPI, operationId);
 
-        assertTrue(operation.isPresent(),
-                "Could not find any operation with operationId: '" + operationId + "' in the OpenAPI document.");
+        assertThat(operation.isPresent())
+                .as("Could not find any operation with operationId: '" + operationId + "' in the OpenAPI document.").isTrue();
 
         Optional<Parameter> parameter = operation.stream().flatMap(op -> op.getParameters().stream())
                 .filter(param -> "priority".equals(param.getName()) && Parameter.In.QUERY.equals(param.getIn()))
                 .findFirst();
 
-        assertTrue(parameter.isPresent(),
-                "The operation '" + operationId + "' exists, but it does not have a query parameter named 'priority'.");
+        assertThat(parameter.isPresent())
+                .as("The operation '" + operationId + "' exists, but it does not have a query parameter named 'priority'.")
+                .isTrue();
     }
 
     private Optional<Operation> findOperationById(OpenAPI openAPI, String operationId) {

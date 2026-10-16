@@ -9,7 +9,7 @@
 Run dataset optimization as a fully isolated service.
 This opinionated approach eliminates the boilerplate typically needed to expose a solver over a REST API.
 
-If you haven't done so yet, start with the xref:../quickstart/service/getting-started.adoc[Getting started: building a service] guide.
+If you haven't done so yet, start with the xref:../../quickstart/service/getting-started.adoc[Getting started: building a service] guide.
 
 [#howSolvingWorks]
 == How solving works
@@ -44,11 +44,11 @@ xref:domain-modeling/modeling-planning-problems.adoc[*Modeling planning problems
 How to annotate your domain with `@PlanningSolution`, `@PlanningEntity`, `@PlanningVariable`, and related annotations.
 This is largely the same in both modes; service-specific interfaces are covered in the service section.
 
-xref:../constraints-and-score/overview.adoc#constraintsAndScoreOverview[*Constraints and Score*]::
+xref:../../constraints-and-score/overview.adoc#constraintsAndScoreOverview[*Constraints and Score*]::
 How to define hard and soft constraints, choose a score type, and analyze solution quality.
 Constraint streams and score calculation work identically in both modes.
 
-xref:../running-timefold-solver/multithreaded-solving.adoc[*Tuning and diagnostics*]::
+xref:../multithreaded-solving.adoc[*Tuning and diagnostics*]::
 Environment modes, logging, monitoring, multi-threaded solving, and random seed configuration.
 These concepts and most configuration options apply regardless of how you run the solver.
 

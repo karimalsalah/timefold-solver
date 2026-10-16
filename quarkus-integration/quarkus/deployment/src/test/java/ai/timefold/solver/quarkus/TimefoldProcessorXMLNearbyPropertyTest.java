@@ -1,7 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 
@@ -38,15 +37,15 @@ class TimefoldProcessorXMLNearbyPropertyTest {
 
     @Test
     void solverConfigXml_property() {
-        assertNotNull(solverConfig);
-        assertNotNull(solverConfig.getNearbyDistanceMeterClass());
-        assertEquals(TestdataQuarkusSolution.class, solverConfig.getSolutionClass());
-        assertEquals(Collections.singletonList(TestdataQuarkusEntity.class), solverConfig.getEntityClassList());
-        assertEquals(TestdataQuarkusConstraintProvider.class,
-                solverConfig.getScoreDirectorFactoryConfig().getConstraintProviderClass());
+        assertThat(solverConfig).isNotNull();
+        assertThat(solverConfig.getNearbyDistanceMeterClass()).isNotNull();
+        assertThat(solverConfig.getSolutionClass()).isEqualTo(TestdataQuarkusSolution.class);
+        assertThat(solverConfig.getEntityClassList()).isEqualTo(Collections.singletonList(TestdataQuarkusEntity.class));
+        assertThat(solverConfig.getScoreDirectorFactoryConfig().getConstraintProviderClass())
+                .isEqualTo(TestdataQuarkusConstraintProvider.class);
         // Properties defined in solverConfig.xml
-        assertEquals(3L, solverConfig.getTerminationConfig().getSecondsSpentLimit().longValue());
-        assertNotNull(solverFactory);
+        assertThat(solverConfig.getTerminationConfig().getSecondsSpentLimit().longValue()).isEqualTo(3L);
+        assertThat(solverFactory).isNotNull();
     }
 
 }

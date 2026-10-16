@@ -1,8 +1,7 @@
 package ai.timefold.solver.quarkus.inheritance.solution;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import ai.timefold.solver.core.testdomain.inheritance.solution.baseanot.TestdataOnlyAnnotatedBaseEntity;
 import ai.timefold.solver.core.testdomain.inheritance.solution.baseanot.TestdataOnlyChildAnnotatedChildEntity;
@@ -26,13 +25,14 @@ class TimefoldProcessorOnlyChildAnnotatedTest {
                             TestdataOnlyChildAnnotatedSolution.class, TestdataOnlyChildAnnotatedChildEntity.class,
                             TestdataOnlyAnnotatedBaseEntity.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertTrue(exception.getMessage()
-                        .contains("is not annotated with @PlanningSolution but defines annotated members"));
-                assertTrue(exception.getMessage().contains("Maybe annotate"));
-                assertTrue(exception.getMessage().contains("with @PlanningSolution"));
-                assertTrue(
-                        exception.getMessage().contains("Maybe remove the annotated members ([entityList, score, valueList])"));
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage()
+                        .contains("is not annotated with @PlanningSolution but defines annotated members")).isTrue();
+                assertThat(exception.getMessage().contains("Maybe annotate")).isTrue();
+                assertThat(exception.getMessage().contains("with @PlanningSolution")).isTrue();
+                assertThat(
+                        exception.getMessage().contains("Maybe remove the annotated members ([entityList, score, valueList])"))
+                        .isTrue();
             });
 
     /**

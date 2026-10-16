@@ -1,8 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -46,10 +44,10 @@ class TimefoldProcessorDeclarativeShadowSolutionListSolveTest {
         problem.setValueList(List.of(a, b, c));
         var solverJob = solverManager.solve(1L, problem);
         var solution = solverJob.getFinalBestSolution();
-        assertNotNull(solution);
-        assertNotSame(solution, problem);
-        assertEquals(-1, solution.getScore().score());
-        assertNotSame(solution.getEntityList().get(0), problem.getEntityList().get(1));
+        assertThat(solution).isNotNull();
+        assertThat(problem).isNotSameAs(solution);
+        assertThat(solution.getScore().score()).isEqualTo(-1);
+        assertThat(problem.getEntityList().get(1)).isNotSameAs(solution.getEntityList().get(0));
     }
 
 }

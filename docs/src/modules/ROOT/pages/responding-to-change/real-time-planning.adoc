@@ -157,7 +157,7 @@ The construction heuristic re-runs, but finishes quickly because few or no varia
 . Resets each configured `Termination` (both solver and phase), but does not undo a prior `terminateEarly()` call.
 +
 `Termination` is usually not configured in real-time planning; instead call `Solver.terminateEarly()` when results are needed.
-Alternatively, configure a `Termination` and use daemon mode together with xref:optimization-algorithms/optimization-algorithms.adoc#SolverEventListener[`BestSolutionChangedEvent`] as described below.
+Alternatively, configure a `Termination` and use daemon mode together with xref:optimization-algorithms/overview.adoc#SolverEventListener[`BestSolutionChangedEvent`] as described below.
 
 
 [#daemon]
@@ -189,7 +189,7 @@ To enable daemon mode:
 Always call `Solver.terminateEarly()` when your application shuts down to avoid killing the solver thread unnaturally.
 ====
 
-. Subscribe to xref:optimization-algorithms/optimization-algorithms.adoc#SolverEventListener[`BestSolutionChangedEvent`] to receive new best solutions from the solver thread.
+. Subscribe to xref:optimization-algorithms/overview.adoc#SolverEventListener[`BestSolutionChangedEvent`] to receive new best solutions from the solver thread.
 +
 A `BestSolutionChangedEvent` does not guarantee that every `ProblemChange` has been processed, or that the solution is initialized and feasible.
 

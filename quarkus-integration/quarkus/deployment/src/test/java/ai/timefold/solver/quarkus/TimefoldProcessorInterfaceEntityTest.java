@@ -1,8 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,11 +44,11 @@ class TimefoldProcessorInterfaceEntityTest {
         problem.setEntityList(entityList);
 
         TestdataInterfaceEntitySolution solution = solverFactory.buildSolver().solve(problem);
-        assertNotNull(solution);
+        assertThat(solution).isNotNull();
 
-        assertEquals(entityList.size(), solution.getEntityList().size());
+        assertThat(solution.getEntityList().size()).isEqualTo(entityList.size());
         for (int i = 0; i < entityList.size(); i++) {
-            assertNotSame(entityList.get(i), solution.getEntityList().get(i));
+            assertThat(solution.getEntityList().get(i)).isNotSameAs(entityList.get(i));
         }
     }
 }

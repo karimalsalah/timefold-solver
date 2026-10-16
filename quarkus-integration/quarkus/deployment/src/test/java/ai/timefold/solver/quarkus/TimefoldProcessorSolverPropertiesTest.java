@@ -1,8 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 
@@ -51,23 +49,23 @@ class TimefoldProcessorSolverPropertiesTest {
 
     @Test
     void solverProperties() {
-        assertEquals(EnvironmentMode.FULL_ASSERT, solverConfig.getEnvironmentMode());
-        assertTrue(solverConfig.getDaemon());
-        assertEquals("2", solverConfig.getMoveThreadCount());
-        assertNotNull(solverConfig.getNearbyDistanceMeterClass());
-        assertNotNull(solverFactory);
+        assertThat(solverConfig.getEnvironmentMode()).isEqualTo(EnvironmentMode.FULL_ASSERT);
+        assertThat(solverConfig.getDaemon()).isTrue();
+        assertThat(solverConfig.getMoveThreadCount()).isEqualTo("2");
+        assertThat(solverConfig.getNearbyDistanceMeterClass()).isNotNull();
+        assertThat(solverFactory).isNotNull();
     }
 
     @Test
     void terminationProperties() {
-        assertEquals(Duration.ofHours(4), solverConfig.getTerminationConfig().getSpentLimit());
-        assertEquals(Duration.ofHours(5), solverConfig.getTerminationConfig().getUnimprovedSpentLimit());
-        assertEquals(SimpleScore.of(0).toString(), solverConfig.getTerminationConfig().getBestScoreLimit());
+        assertThat(solverConfig.getTerminationConfig().getSpentLimit()).isEqualTo(Duration.ofHours(4));
+        assertThat(solverConfig.getTerminationConfig().getUnimprovedSpentLimit()).isEqualTo(Duration.ofHours(5));
+        assertThat(solverConfig.getTerminationConfig().getBestScoreLimit()).isEqualTo(SimpleScore.of(0).toString());
 
         var terminationConfig = solverConfig.getTerminationConfig();
-        assertNotNull(terminationConfig);
-        assertNotNull(terminationConfig.getDiminishedReturnsConfig());
-        assertEquals(Duration.ofHours(6), terminationConfig.getDiminishedReturnsConfig().getSlidingWindowDuration());
-        assertEquals(0.5, terminationConfig.getDiminishedReturnsConfig().getMinimumImprovementRatio());
+        assertThat(terminationConfig).isNotNull();
+        assertThat(terminationConfig.getDiminishedReturnsConfig()).isNotNull();
+        assertThat(terminationConfig.getDiminishedReturnsConfig().getSlidingWindowDuration()).isEqualTo(Duration.ofHours(6));
+        assertThat(terminationConfig.getDiminishedReturnsConfig().getMinimumImprovementRatio()).isEqualTo(0.5);
     }
 }

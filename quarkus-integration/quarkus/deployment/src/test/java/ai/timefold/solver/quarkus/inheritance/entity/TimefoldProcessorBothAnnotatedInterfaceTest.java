@@ -1,7 +1,6 @@
 package ai.timefold.solver.quarkus.inheritance.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import jakarta.inject.Inject;
 
@@ -40,7 +39,7 @@ class TimefoldProcessorBothAnnotatedInterfaceTest {
     void testBothClassesAnnotatedBaseIsInterface() {
         var problem = TestdataBothAnnotatedInterfaceSolution.generateSolution(3, 2, false);
         var solution = solverFactory.buildSolver().solve(problem);
-        assertNotNull(solution);
+        assertThat(solution).isNotNull();
         assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
     }
 }

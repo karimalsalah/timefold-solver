@@ -1,9 +1,8 @@
 package ai.timefold.solver.service.quarkus.deployment;
 
 import static ai.timefold.solver.service.quarkus.deployment.TimefoldModelDescriptorProcessor.validateModelId;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,71 +12,61 @@ public class ModelNameValidationTest {
 
     @Test
     void testValidModelId() {
-        assertDoesNotThrow(() -> validateModelId("employee-scheduling_v1"));
+        assertThatCode(() -> validateModelId("employee-scheduling_v1")).doesNotThrowAnyException();
     }
 
     @Test
     void testEmptyModelId() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId(""));
-        assertEquals("Model name cannot be null or empty.", exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId(""))
+                .withMessage("Model name cannot be null or empty.");
     }
 
     @Test
     void testModelIdWithMultipleUnderscores() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("invalid_model_name"));
-        assertEquals("Model name cannot contain underscore (_).", exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("invalid_model_name"))
+                .withMessage("Model name cannot contain underscore (_).");
     }
 
     @Test
     void testWhitespaceModelId() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("model id with space"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("model id with space"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testModelIdWithEmoji() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("\uD83D\uDE80Rocket_123"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("\uD83D\uDE80Rocket_123"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testSystemModelId() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("system.users"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("system.users"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testModelIdWithDotSystem() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("example.system.model"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("example.system.model"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testModelIdWithNullCharacter() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("invalid\0id"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("invalid\0id"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testModelIdWithDollarNotAllowed() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("oplog.$main"));
-        assertEquals(EXPECTED, exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("oplog.$main"))
+                .withMessage(EXPECTED);
     }
 
     @Test
     void testTooLongModelId() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> validateModelId("a".repeat(255) + "_"));
-        assertEquals("Model name and version is too long.",
-                exception.getMessage());
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> validateModelId("a".repeat(255) + "_"))
+                .withMessage("Model name and version is too long.");
     }
 
 }

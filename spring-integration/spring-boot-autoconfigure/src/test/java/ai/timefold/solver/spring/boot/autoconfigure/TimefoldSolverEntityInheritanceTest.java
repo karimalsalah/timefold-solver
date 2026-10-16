@@ -2,7 +2,6 @@ package ai.timefold.solver.spring.boot.autoconfigure;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import ai.timefold.solver.core.api.score.SimpleScore;
 import ai.timefold.solver.core.api.solver.SolverFactory;
@@ -129,7 +128,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataBothAnnotatedSolution.generateSolution(3, 2, false);
                     var solution = (TestdataBothAnnotatedSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
                 }))
                 .doesNotThrowAnyException();
@@ -147,7 +146,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataBothAnnotatedInterfaceSolution.generateSolution(3, 2, false);
                     var solution = (TestdataBothAnnotatedInterfaceSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
                 }))
                 .doesNotThrowAnyException();
@@ -164,7 +163,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataChildNotAnnotatedSolution.generateSolution(3, 2, false);
                     var solution = (TestdataChildNotAnnotatedSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
                 }))
                 .doesNotThrowAnyException();
@@ -182,7 +181,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataChildNotAnnotatedInterfaceSolution.generateSolution(1, 2, false);
                     var solution = (TestdataChildNotAnnotatedInterfaceSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(2));
                 }))
                 .doesNotThrowAnyException();
@@ -224,7 +223,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var solverFactory = context.getBean(SolverFactory.class);
                     var problem = TestdataAddVarSolution.generateSolution(3, 2, false);
                     var solution = (TestdataAddVarSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(4)); // value of 2 for each constraint
                 }))
                 .doesNotThrowAnyException();
@@ -243,7 +242,7 @@ class TimefoldSolverEntityInheritanceTest {
                     var problem =
                             TestdataAddVarInterfaceSolution.generateSolution(3, 2, false);
                     var solution = (TestdataAddVarInterfaceSolution) solverFactory.buildSolver().solve(problem);
-                    assertNotNull(solution);
+                    assertThat(solution).isNotNull();
                     assertThat(solution.getScore()).isEqualTo(SimpleScore.of(4)); // value of 2 for each constraint
                 }))
                 .doesNotThrowAnyException();

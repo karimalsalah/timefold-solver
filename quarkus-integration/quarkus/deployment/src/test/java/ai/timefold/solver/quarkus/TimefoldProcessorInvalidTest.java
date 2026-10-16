@@ -1,7 +1,7 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import jakarta.inject.Inject;
 
@@ -33,8 +33,8 @@ class TimefoldProcessorInvalidTest {
                             TestdataInvalidInverseRelationValue.class,
                             TestdataInvalidQuarkusConstraintProvider.class))
             .assertException(exception -> {
-                assertEquals(IllegalStateException.class, exception.getClass());
-                assertEquals("""
+                assertThat(exception.getClass()).isEqualTo(IllegalStateException.class);
+                assertThat(exception.getMessage()).isEqualTo("""
                         The field (entityList) with a @%s annotation is \
                         in a class (%s) \
                         that does not have a @%s annotation.
@@ -43,8 +43,7 @@ class TimefoldProcessorInvalidTest {
                                 TestdataInvalidInverseRelationValue.class.getName(),
                                 PlanningEntity.class.getSimpleName(),
                                 PlanningEntity.class.getSimpleName(),
-                                TestdataInvalidInverseRelationValue.class.getName()),
-                        exception.getMessage());
+                                TestdataInvalidInverseRelationValue.class.getName()));
             });
 
     @Inject

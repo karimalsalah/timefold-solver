@@ -1,7 +1,6 @@
 package ai.timefold.solver.quarkus.constraints;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import jakarta.inject.Inject;
 
@@ -32,11 +31,11 @@ class TimefoldProcessorConstraintProviderTest {
                 var constraintMetaModelsBySolverNames = context
                         .consume(ConstraintMetaModelBuildItem.class)
                         .constraintMetaModelsBySolverNames();
-                assertEquals(1, constraintMetaModelsBySolverNames.size());
+                assertThat(constraintMetaModelsBySolverNames.size()).isEqualTo(1);
                 var constraintMetaModel = constraintMetaModelsBySolverNames.get(
                         TimefoldBuildTimeConfig.DEFAULT_SOLVER_NAME);
-                assertNotNull(constraintMetaModel);
-                assertEquals(1, constraintMetaModel.getConstraints().size());
+                assertThat(constraintMetaModel).isNotNull();
+                assertThat(constraintMetaModel.getConstraints().size()).isEqualTo(1);
             })
                     .consumes(ConstraintMetaModelBuildItem.class)
                     .produces(SyntheticBeanBuildItem.class)
@@ -49,9 +48,9 @@ class TimefoldProcessorConstraintProviderTest {
 
     @Test
     void solverConfigXml_default() {
-        assertEquals(TestdataQuarkusConstraintProvider.class,
-                solverConfig.getScoreDirectorFactoryConfig().getConstraintProviderClass());
-        assertNotNull(solverFactory.buildSolver());
+        assertThat(solverConfig.getScoreDirectorFactoryConfig().getConstraintProviderClass())
+                .isEqualTo(TestdataQuarkusConstraintProvider.class);
+        assertThat(solverFactory.buildSolver()).isNotNull();
     }
 
 }

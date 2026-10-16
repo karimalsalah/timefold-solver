@@ -1,8 +1,6 @@
 package ai.timefold.solver.quarkus;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -48,15 +46,16 @@ class TimefoldProcessorShadowVariableSolveTest {
 
     @Test
     void singletonSolverFactory() {
-        assertNotNull(solverFactory);
-        assertSame(((DefaultSolverFactory<TestdataQuarkusShadowVariableSolution>) solverFactory).getScoreDirectorFactory(),
-                ((DefaultSolutionManager<TestdataQuarkusShadowVariableSolution, SimpleScore>) solutionManager)
+        assertThat(solverFactory).isNotNull();
+        assertThat(((DefaultSolutionManager<TestdataQuarkusShadowVariableSolution, SimpleScore>) solutionManager)
+                .getScoreDirectorFactory())
+                .isSameAs(((DefaultSolverFactory<TestdataQuarkusShadowVariableSolution>) solverFactory)
                         .getScoreDirectorFactory());
-        assertNotNull(solverManager);
+        assertThat(solverManager).isNotNull();
         // There is only one SolverFactory instance
-        assertSame(solverFactory,
-                ((DefaultSolverManager<TestdataQuarkusShadowVariableSolution>) solverManager).getSolverFactory());
-        assertNotNull(solutionManager);
+        assertThat(((DefaultSolverManager<TestdataQuarkusShadowVariableSolution>) solverManager).getSolverFactory())
+                .isSameAs(solverFactory);
+        assertThat(solutionManager).isNotNull();
     }
 
     @Test
@@ -70,8 +69,8 @@ class TimefoldProcessorShadowVariableSolveTest {
                 .collect(Collectors.toList()));
         SolverJob<TestdataQuarkusShadowVariableSolution> solverJob = solverManager.solve(1L, problem);
         TestdataQuarkusShadowVariableSolution solution = solverJob.getFinalBestSolution();
-        assertNotNull(solution);
-        assertTrue(solution.getScore().score() >= 0);
+        assertThat(solution).isNotNull();
+        assertThat(solution.getScore().score() >= 0).isTrue();
     }
 
 }

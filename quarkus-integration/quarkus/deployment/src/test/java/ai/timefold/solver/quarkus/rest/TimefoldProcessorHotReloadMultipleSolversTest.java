@@ -1,6 +1,6 @@
 package ai.timefold.solver.quarkus.rest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import ai.timefold.solver.quarkus.testdomain.normal.TestdataQuarkusConstraintProvider;
 import ai.timefold.solver.quarkus.testdomain.normal.TestdataQuarkusEntity;
@@ -39,19 +39,19 @@ public class TimefoldProcessorHotReloadMultipleSolversTest {
     @Test
     void solverConfigHotReload() {
         String resp = RestAssured.get("/solver-config/seconds-spent-limit").asString();
-        assertEquals("secondsSpentLimit=0.50;secondsSpentLimit=0.12", resp);
+        assertThat(resp).isEqualTo("secondsSpentLimit=0.50;secondsSpentLimit=0.12");
         // First file
         test.modifyResourceFile("ai/timefold/solver/quarkus/customSolverQuarkusConfig.xml",
                 s -> s.replace("<secondsSpentLimit>1</secondsSpentLimit>",
                         "<secondsSpentLimit>2</secondsSpentLimit>"));
         resp = RestAssured.get("/solver-config/seconds-spent-limit").asString();
-        assertEquals("secondsSpentLimit=0.25;secondsSpentLimit=0.12", resp);
+        assertThat(resp).isEqualTo("secondsSpentLimit=0.25;secondsSpentLimit=0.12");
         // Second file
         test.modifyResourceFile("ai/timefold/solver/quarkus/customSolverQuarkusShadowVariableConfig.xml",
                 s -> s.replace("<secondsSpentLimit>4</secondsSpentLimit>",
                         "<secondsSpentLimit>8</secondsSpentLimit>"));
         resp = RestAssured.get("/solver-config/seconds-spent-limit").asString();
-        assertEquals("secondsSpentLimit=0.25;secondsSpentLimit=0.06", resp);
+        assertThat(resp).isEqualTo("secondsSpentLimit=0.25;secondsSpentLimit=0.06");
     }
 
 }
